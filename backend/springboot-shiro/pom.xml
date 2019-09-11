@@ -8,10 +8,10 @@
         <version>2.0.0-SNAPSHOT</version>
     </parent>
     <groupId>com.iflytek.cyy</groupId>
-    <artifactId>eistore</artifactId>
+    <artifactId>springboot-shiro</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>eistore</name>
-    <description>Eistore</description>
+    <name>springboot-shiro</name>
+    <description>demo project for springboot-shiro</description>
 
     <dependencies>
         <dependency>
@@ -84,6 +84,14 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
     </dependencies>
 
