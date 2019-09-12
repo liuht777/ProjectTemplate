@@ -5,4 +5,4 @@ spring:
     active: local
 server:
   servlet:
-    context-path: /eistore
+    context-path: /demo

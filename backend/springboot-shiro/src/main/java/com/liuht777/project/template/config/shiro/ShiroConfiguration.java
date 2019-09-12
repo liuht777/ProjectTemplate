@@ -9,7 +9,6 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -29,9 +28,6 @@ import java.util.Map;
 @Slf4j
 public class ShiroConfiguration {
 
-    @Value("${server.servlet.path:''}")
-    private String contextPath;
-
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -50,19 +46,19 @@ public class ShiroConfiguration {
         // 定义shiro过滤链
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
-        filterChainDefinitionMap.put(contextPath + "/", "anon");
-        filterChainDefinitionMap.put(contextPath + "/static/**", "anon");
-        filterChainDefinitionMap.put(contextPath + "/api/v1/authc/**", "anon");
-        filterChainDefinitionMap.put(contextPath + "/error", "anon");
-        filterChainDefinitionMap.put(contextPath + "/swagger-ui.html", "anon");
-        filterChainDefinitionMap.put(contextPath + "/webjars/springfox-swagger-ui/**", "anon");
-        filterChainDefinitionMap.put(contextPath + "/swagger-resources/**", "anon");
-        filterChainDefinitionMap.put(contextPath + "/v2/api-docs", "anon");
-        filterChainDefinitionMap.put(contextPath + "/**", "authc");
+        filterChainDefinitionMap.put("/", "anon");
+        filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/api/v1/authc/**", "anon");
+        filterChainDefinitionMap.put("/error", "anon");
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/webjars/springfox-swagger-ui/**", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        filterChainDefinitionMap.put("/v2/api-docs", "anon");
+        filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilters(filters);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        shiroFilterFactoryBean.setLoginUrl(contextPath + "/api/v1/authc/nologin");
-        shiroFilterFactoryBean.setUnauthorizedUrl(contextPath + "/api/v1/authc/unauthorized");
+        shiroFilterFactoryBean.setLoginUrl("/api/v1/authc/nologin");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/api/v1/authc/unauthorized");
         return shiroFilterFactoryBean;
     }
 
