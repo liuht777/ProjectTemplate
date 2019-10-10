@@ -3,6 +3,7 @@ package com.liuht777.project.template.config.shiro;
 import com.liuht777.project.template.consts.common.CacheConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -75,11 +76,24 @@ public class ShiroConfiguration {
     }
 
     /**
+     * 定义加密器
+     */
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName(ShiroUtil.HASH_ALGORITHM);
+        hashedCredentialsMatcher.setHashIterations(ShiroUtil.HASH_ITERATIONS);
+        return hashedCredentialsMatcher;
+    }
+
+    /**
      * 自定义 Shiro Realm
      */
     @Bean
     public UserRealm userRealm() {
-        return new UserRealm();
+        final UserRealm userRealm = new UserRealm();
+        userRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return userRealm;
     }
 
     /**
